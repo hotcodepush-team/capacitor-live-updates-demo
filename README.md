@@ -32,6 +32,8 @@ npm run build       # the web bundle into dist/
 npm run sync        # cap sync, then the resource file into both native projects
 ```
 
+The golden path in `maestro/golden-path.yaml` is the device test the monorepo's `e2e/` runner drives on the simulator and the emulator; by hand, install the app, release `v2` with the CLI, then `maestro test -e EXPECTED_VERSION=v2 -e EXPECTED_RELEASE_NUMBER=1 maestro/golden-path.yaml`.
+
 ## License
 
 See [LICENSE](./LICENSE).

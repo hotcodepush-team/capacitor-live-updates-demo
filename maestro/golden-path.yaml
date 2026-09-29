@@ -1,0 +1,26 @@
+# The golden path of the demo: the embedded v1 launches, a sync picks up the
+# release the CLI published, and the next start runs it. The runner in the
+# monorepo's e2e/ boots the stack, releases v2 and passes the expected label
+# and release number; by hand, release first and run
+# `maestro test -e EXPECTED_VERSION=v2 -e EXPECTED_RELEASE_NUMBER=1 maestro/golden-path.yaml`.
+appId: com.hotcodepush.demo.capacitor
+env:
+  EXPECTED_VERSION: v2
+  EXPECTED_RELEASE_NUMBER: '1'
+---
+- launchApp:
+    clearState: true
+- assertVisible: 'v1'
+- assertVisible: 'embedded'
+- tapOn: 'Sync now'
+# The sync at start may have staged the release already; either way the last
+# sync settles on one of the two, and next-start installs it on the relaunch.
+- extendedWaitUntil:
+    visible: '(UPDATED|UP_TO_DATE).*'
+    timeout: 60000
+- stopApp
+- launchApp
+- extendedWaitUntil:
+    visible: ${EXPECTED_VERSION}
+    timeout: 30000
+- assertVisible: '#${EXPECTED_RELEASE_NUMBER} · ${EXPECTED_VERSION}'
