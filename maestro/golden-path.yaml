@@ -13,11 +13,23 @@ env:
 - assertVisible: 'v1'
 - assertVisible: 'embedded'
 - tapOn: 'Sync now'
+- extendedWaitUntil:
+    notVisible: 'syncing…'
+    timeout: 60000
+# A device that was offline retries on its next sync; a fresh emulator can be
+# offline for its first seconds, so the tap is repeated a bounded few times.
+- repeat:
+    times: 3
+    while:
+      visible: 'FAILED · OFFLINE.*'
+    commands:
+      - tapOn: 'Sync now'
+      - extendedWaitUntil:
+          notVisible: 'syncing…'
+          timeout: 60000
 # The sync at start may have staged the release already; either way the last
 # sync settles on one of the two, and next-start installs it on the relaunch.
-- extendedWaitUntil:
-    visible: '(UPDATED|UP_TO_DATE).*'
-    timeout: 60000
+- assertVisible: '(UPDATED|UP_TO_DATE).*'
 - stopApp
 - launchApp
 - extendedWaitUntil:
