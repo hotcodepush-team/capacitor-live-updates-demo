@@ -13,19 +13,18 @@ When code and plan disagree, stop and surface it; never improvise.
 index.html, src/             the one screen: main.ts and style.css
 hotcodepush.json             the project's configuration, as `init` writes it; placeholder ids until the app is created
 capacitor.config.ts          webDir `dist`
-scripts/write-resource-file.mjs  the `capacitor:copy:after` hook writing the resource file into both native projects
 ios/, android/               the native projects, committed; the copied web assets and the resource file are not
 ```
 
 ## Commands
 
-| Command             | Does                                                      |
-| ------------------- | --------------------------------------------------------- |
-| `npm run build`     | the web bundle into `dist/`                               |
-| `npm run sync`      | `cap sync`, which runs the hook writing the resource file |
-| `npm run lint`      | Prettier                                                  |
-| `npm run typecheck` | TypeScript                                                |
-| `npm run dev`       | Vite in the browser, where the SDK is the web no-op       |
+| Command             | Does                                                            |
+| ------------------- | --------------------------------------------------------------- |
+| `npm run build`     | the web bundle into `dist/`                                     |
+| `npm run sync`      | `cap sync`, which runs the embed hook writing the resource file |
+| `npm run lint`      | Prettier                                                        |
+| `npm run typecheck` | TypeScript                                                      |
+| `npm run dev`       | Vite in the browser, where the SDK is the web no-op             |
 
 Run `npm run fmt` before every commit.
 The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`.
@@ -33,13 +32,14 @@ The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -desti
 ## The resource file
 
 The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`.
-`scripts/write-resource-file.mjs` writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`.
-It is the stopgap for `npx hotcodepush bundle embed`, which replaces it when the CLI ships the command: the script registers no embedded bundle and computes no fingerprint.
+The `capacitor:copy:after` hook, `npx hotcodepush bundle embed` as `init` wired it, writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`, and registers the store build's embedded bundle when the CLI is logged in; without a session it writes the file and warns.
+The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.new build of one commit, so `npx hotcodepush` resolves from `node_modules`.
 `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` point the SDK at another host, the local stack or staging.
 
 ## Dependencies during the build phase
 
 The SDK is pinned to the pkg.pr.new build of one commit, `https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@<sha>`, never `@main`; a bump is one edit of that sha.
+The CLI is pinned the same way, `https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@<sha>`.
 Every other dependency is pinned to an exact version and bumped by Renovate.
 
 ## Agent workspace
