@@ -1,0 +1,29 @@
+{
+  "name": "capacitor-live-updates-demo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The HotCodePush Capacitor live updates demo app",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "capacitor:copy:after": "node scripts/write-resource-file.mjs",
+    "dev": "vite",
+    "fmt": "prettier --write .",
+    "lint": "prettier --check .",
+    "sync": "cap sync",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/core": "8.5.2",
+    "@capacitor/ios": "8.5.2",
+    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@137dd88"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "prettier": "3.9.8",
+    "typescript": "6.0.3",
+    "vite": "8.3.1"
+  }
+}
