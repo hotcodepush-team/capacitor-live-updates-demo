@@ -3,10 +3,9 @@
 # monorepo's e2e/ boots the stack, releases v2 and passes the expected label
 # and release number; by hand, release first and run
 # `maestro test -e EXPECTED_VERSION=v2 -e EXPECTED_RELEASE_NUMBER=1 maestro/golden-path.yaml`.
+# No `env:` header: Maestro defines it after the `-e` parameters, so its
+# values would override them.
 appId: com.hotcodepush.demo.capacitor
-env:
-  EXPECTED_VERSION: v2
-  EXPECTED_RELEASE_NUMBER: '1'
 ---
 - launchApp:
     clearState: true
