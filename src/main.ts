@@ -20,14 +20,14 @@ void showState();
 
 async function showState(): Promise<void> {
   try {
-    const [status, device] = await Promise.all([
-      HotCodePush.getStatus(),
+    const [state, device] = await Promise.all([
+      HotCodePush.getState(),
       HotCodePush.getDevice(),
     ]);
-    currentReleaseText.textContent = resolveReleaseText(status.currentRelease);
+    currentReleaseText.textContent = resolveReleaseText(state.currentRelease);
     deviceIdText.textContent = device.id || 'none on the web';
-    lastSyncText.textContent = status.lastCheck
-      ? resolveResultText(status.lastCheck.result)
+    lastSyncText.textContent = state.lastCheck
+      ? resolveResultText(state.lastCheck.result)
       : 'none yet';
   } catch (error) {
     currentReleaseText.textContent = resolveErrorText(error);
