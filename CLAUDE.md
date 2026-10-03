@@ -40,6 +40,7 @@ The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.ne
 
 The SDK is pinned to the pkg.pr.new build of one commit, `https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@<sha>`, never `@main`; a bump is one edit of that sha.
 The CLI is pinned the same way, `https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@<sha>`.
+The SDK's Android core comes from JitPack at the commit the SDK pins, so `android/build.gradle` lists `https://jitpack.io` among every project's repositories until the library is published; its iOS core resolves through Swift Package Manager on its own.
 Every other dependency is pinned to an exact version and bumped by Renovate.
 
 ## Agent workspace

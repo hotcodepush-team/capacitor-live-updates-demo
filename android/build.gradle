@@ -21,6 +21,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        // JitPack builds the protocol-android commit the SDK pins until the library is published.
+        maven { url 'https://jitpack.io' }
     }
 }
 

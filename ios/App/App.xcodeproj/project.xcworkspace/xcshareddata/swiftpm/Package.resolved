@@ -9,6 +9,14 @@
         "revision" : "0b6882e9a3288342aacf36348e5a94e4f1dd7b13",
         "version" : "8.5.2"
       }
+    },
+    {
+      "identity" : "protocol-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hotcodepush-team/protocol-ios.git",
+      "state" : {
+        "revision" : "b4917341a05db9f145a766591c1ecef73d439ca5"
+      }
     }
   ],
   "version" : 3
