@@ -1,5 +1,5 @@
 {
   "appId": "ec266350-15f9-44c6-9d85-82f1363ede75",
-  "channelId": "83ae07ef-2539-4c88-8380-17a56e24a82f",
+  "channel": "production",
   "dir": "dist"
 }
