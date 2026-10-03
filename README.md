@@ -32,7 +32,8 @@ npm run build       # the web bundle into dist/
 npm run sync        # cap sync, whose embed hook writes the resource file into both native projects
 ```
 
-The golden path in `maestro/golden-path.yaml` is the device test the monorepo's `e2e/` runner drives on the simulator and the emulator; by hand, install the app, release `v2` with the CLI, then `maestro test -e EXPECTED_VERSION=v2 -e EXPECTED_RELEASE_NUMBER=1 maestro/golden-path.yaml`.
+The flows in `maestro/` are the update lifecycle contract, the device test the monorepo's `e2e/` runner drives on the simulator and the emulator: `golden-path.yaml` takes a release on a fresh install, `rollback.yaml` survives a build that never signals readiness, `revoke.yaml` leaves a revoked release for the older one, and `incompatible.yaml` skips a release its binary does not qualify for.
+Each flow after the first continues where the one before left the app; the runner publishes the releases in between and passes each flow its numbers. By hand, install the app, release `v2` with the CLI, then `maestro test -e EXPECTED_VERSION=v2 -e EXPECTED_RELEASE_NUMBER=1 maestro/golden-path.yaml`, and each flow's header names what it expects.
 
 ## License
 

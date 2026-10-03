@@ -12,10 +12,15 @@ const versionHeading = getElement('version');
 const currentReleaseText = getElement('current-release');
 const deviceIdText = getElement('device-id');
 const lastSyncText = getElement('last-sync');
+const lastRollbackText = getElement('last-rollback');
 const syncButton = getElement<HTMLButtonElement>('sync-button');
 
 versionHeading.textContent = VERSION;
 syncButton.addEventListener('click', () => void syncNow());
+// Fired once, on the start that follows a rollback: the release that failed and why.
+void HotCodePush.addListener('rolledBack', event => {
+  lastRollbackText.textContent = `from ${resolveReleaseText(event.from)} · ${event.reason}`;
+});
 void showState();
 
 async function showState(): Promise<void> {
