@@ -18,13 +18,13 @@ ios/, android/               the native projects, committed; the copied web asse
 
 ## Commands
 
-| Command             | Does                                                            |
-| ------------------- | --------------------------------------------------------------- |
-| `npm run build`     | the web bundle into `dist/`                                     |
-| `npm run sync`      | `cap sync`, which runs the embed hook writing the resource file |
-| `npm run lint`      | Prettier                                                        |
-| `npm run typecheck` | TypeScript                                                      |
-| `npm run dev`       | Vite in the browser, where the SDK is the web no-op             |
+| Command             | Does                                                                     |
+| ------------------- | ------------------------------------------------------------------------ |
+| `npm run build`     | the web bundle into `dist/`                                              |
+| `npm run sync`      | `cap sync`, whose hook runs `binary create` and writes the resource file |
+| `npm run lint`      | Prettier                                                                 |
+| `npm run typecheck` | TypeScript                                                               |
+| `npm run dev`       | Vite in the browser, where the SDK is the web no-op                      |
 
 Run `npm run fmt` before every commit.
 The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`.
@@ -32,7 +32,8 @@ The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -desti
 ## The resource file
 
 The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`.
-The `capacitor:copy:after` hook, `npx hotcodepush bundle embed` as `init` wired it, writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`, and registers the store build's embedded bundle when the CLI is logged in; without a session it writes the file and warns.
+The `capacitor:copy:after` hook, `npx hotcodepush binary create` as `init` wired it, writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`, and creates the store build's binary in HotCodePush when the CLI holds a token.
+Without a token it writes the file without a channel and creates no binary, and such a build answers every check with `FAILED · UNKNOWN_CHANNEL`; in CI a missing token fails the build instead, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped, which is what `ci.yml` sets on its two native jobs.
 The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.new build of one commit, so `npx hotcodepush` resolves from `node_modules`.
 `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` point the SDK at another host, the local stack or staging.
 

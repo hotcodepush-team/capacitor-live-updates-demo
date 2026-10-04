@@ -29,6 +29,9 @@ jobs:
   android:
     name: Build the Android debug app
     runs-on: ubuntu-latest
+    env:
+      # A build that is never shipped: the hook writes the resource file without a channel and creates no binary.
+      HOTCODEPUSH_OFFLINE: '1'
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
@@ -48,6 +51,9 @@ jobs:
   ios:
     name: Build the iOS simulator app
     runs-on: macos-latest
+    env:
+      # A build that is never shipped: the hook writes the resource file without a channel and creates no binary.
+      HOTCODEPUSH_OFFLINE: '1'
     steps:
       - uses: actions/checkout@v7
       - uses: maxim-lobanov/setup-xcode@v1
