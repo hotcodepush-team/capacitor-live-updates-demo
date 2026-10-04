@@ -18,11 +18,11 @@
     "@capacitor/android": "8.5.2",
     "@capacitor/core": "8.5.2",
     "@capacitor/ios": "8.5.2",
-    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@6f15f10"
+    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@44e8758"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.2",
-    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@32272b6",
+    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@b49669f",
     "prettier": "3.9.8",
     "typescript": "6.0.3",
     "vite": "8.3.1"
