@@ -8,8 +8,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = CAPBridgeViewController()
+        let bridgeViewController = CAPBridgeViewController()
+        window?.rootViewController = bridgeViewController
         window?.makeKeyAndVisible()
+        // The web view keeps clear of the status bar and the home indicator (`ios.contentInset`), and Capacitor
+        // paints those strips in the system's background: the page's own colour keeps the screen in one piece.
+        bridgeViewController.loadViewIfNeeded()
+        bridgeViewController.webView?.scrollView.backgroundColor = UIColor(named: "PageBackground")
 
         SceneDelegateProxy.shared.scene(scene, willConnectTo: session, options: connectionOptions)
     }

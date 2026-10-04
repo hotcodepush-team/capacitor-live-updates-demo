@@ -2,10 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0"
-    />
+    <!--
+      No viewport-fit=cover: a page that pads itself by the safe-area insets jumps right after it appears, since
+      WebKit hands them over only after the first frame and Capacitor's Android side learns of the meta tag only once
+      the page is visible. The platform insets the web view instead — `ios.contentInset` in capacitor.config.ts,
+      Capacitor's system-bar padding on Android — and paints the strips it leaves in the page's background, the
+      `PageBackground` colour of each native project.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HotCodePush Demo</title>
     <link rel="stylesheet" href="/src/style.css" />
     <script type="module" src="/src/main.ts"></script>
