@@ -12,7 +12,7 @@ npx cap sync
 ```
 
 `npx cap sync` runs the CLI's build step, `binary create`, which writes the resource file `hotcodepush.json` into both native projects and, when you are logged in with `npx hotcodepush login`, creates the store build's binary in HotCodePush; open `ios/App/App.xcodeproj` in Xcode or `android/` in Android Studio and run the app.
-Without a login the file carries no channel and the app takes no updates: a sync answers `FAILED · UNKNOWN_CHANNEL` and the automatic checks stay silent; in CI the same build fails unless `HOTCODEPUSH_OFFLINE=1` marks it as one that is never shipped.
+Without a login the file carries no channel and the app takes no updates: a sync answers `FAILED · CHANNEL_UNKNOWN` and the automatic checks stay silent; in CI the same build fails unless `HOTCODEPUSH_OFFLINE=1` marks it as one that is never shipped.
 Point it at another host, the local stack or staging, by setting `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` before `npx cap sync`.
 
 ## Usage

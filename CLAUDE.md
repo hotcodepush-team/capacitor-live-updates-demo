@@ -33,7 +33,7 @@ The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -desti
 
 The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`.
 The `capacitor:copy:after` hook, `npx hotcodepush binary create` as `init` wired it, writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`, and creates the store build's binary in HotCodePush when the CLI holds a token.
-Without a token it writes the file without a channel and creates no binary, and in such a build an explicit check answers `FAILED · UNKNOWN_CHANNEL` while the automatic ones stay silent; in CI a missing token fails the build instead, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped, which is what `ci.yml` sets on its two native jobs.
+Without a token it writes the file without a channel and creates no binary, and in such a build an explicit check answers `FAILED · CHANNEL_UNKNOWN` while the automatic ones stay silent; in CI a missing token fails the build instead, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped, which is what `ci.yml` sets on its two native jobs.
 The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.new build of one commit, so `npx hotcodepush` resolves from `node_modules`.
 `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` point the SDK at another host, the local stack or staging.
 
