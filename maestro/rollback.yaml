@@ -25,9 +25,10 @@ appId: com.hotcodepush.demo.capacitor
       - extendedWaitUntil:
           notVisible: 'syncing…'
           timeout: 60000
-# The check at start may have staged the broken release already; either way
-# the last sync settles on one of the two, and next-start installs it.
-- assertVisible: '(UPDATED|UP_TO_DATE).*'
+# The check at start may have downloaded the broken release already, and a
+# second sync answers the same: downloaded, waiting for the next start, which
+# applies it.
+- assertVisible: 'DOWNLOADED · #${BROKEN_RELEASE_NUMBER} · ${BROKEN_VERSION}, applies next-start'
 - stopApp
 - launchApp
 # The broken page shows its label and nothing else, until the readiness gate
