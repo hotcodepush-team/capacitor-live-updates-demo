@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "build": "vite build",
-    "capacitor:copy:after": "npx hotcodepush binary create",
     "dev": "vite",
     "fmt": "prettier --write .",
     "lint": "prettier --check .",
@@ -18,11 +17,11 @@
     "@capacitor/android": "8.5.2",
     "@capacitor/core": "8.5.2",
     "@capacitor/ios": "8.5.2",
-    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@6391e28c5790d55972ddd139ffb27e48c36ed9d3"
+    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@76d7a7ac5c243138cb3eb529901bdb681cae3734"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.2",
-    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@340a2662e889f67d8f4389f03ca4bcb5c39b6607",
+    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@75f1d7a135d4f2bd205dcd7194c6bb93eb7da810",
     "prettier": "3.9.8",
     "typescript": "6.0.3",
     "vite": "8.3.1"
