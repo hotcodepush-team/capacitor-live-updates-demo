@@ -18,6 +18,9 @@ android {
     }
     buildTypes {
         release {
+            // Signed with the debug key, as React Native's template does, so the release build the device tests run installs on an
+            // emulator; a published app signs with its own upload key.
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
