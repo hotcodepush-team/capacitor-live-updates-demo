@@ -11,9 +11,9 @@ npm run build
 npx cap sync
 ```
 
-`npx cap sync` runs the CLI's build step, `binary create`, which writes the resource file `hotcodepush.json` into both native projects and, when you are logged in with `npx hotcodepush login`, creates the store build's binary in HotCodePush; open `ios/App/App.xcodeproj` in Xcode or `android/` in Android Studio and run the app.
-Without a login the file carries no channel and the app takes no updates: a sync answers `FAILED · CHANNEL_UNKNOWN` and the automatic checks stay silent; in CI the same build fails unless `HOTCODEPUSH_OFFLINE=1` marks it as one that is never shipped.
-Point it at another host, the local stack or staging, by setting `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` before `npx cap sync`.
+`npx cap sync` copies the web build into both native projects; open `ios/App/App.xcodeproj` in Xcode or `android/` in Android Studio and run the app. Every native build runs the CLI's build step, which writes the resource file `hotcodepush.json` into the app; an Xcode archive or an Android release build is a store build and, when you are logged in with `npx hotcodepush login`, also creates its binary in HotCodePush.
+Without a login the file carries no channel and the app takes no updates: a sync answers `FAILED · CHANNEL_UNKNOWN` and the automatic checks stay silent; in CI a store build without a login fails unless `HOTCODEPUSH_OFFLINE=1` marks it as one that is never shipped.
+Point it at another host, the local stack or staging, by setting `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` before the native build.
 
 ## Usage
 
@@ -30,7 +30,7 @@ The SDK reference is at [hotcodepush.com/docs/capacitor](https://hotcodepush.com
 npm run lint        # Prettier
 npm run typecheck   # TypeScript
 npm run build       # the web bundle into dist/
-npm run sync        # cap sync, whose hook runs binary create and writes the resource file into both native projects
+npm run sync        # cap sync, the web build into both native projects
 ```
 
 The flows in `maestro/` are the update lifecycle contract, the device test the monorepo's `e2e/` runner drives on the simulator and the emulator: `golden-path.yaml` takes a release on a fresh install, `rollback.yaml` survives a build that never signals readiness, `revoke.yaml` leaves a revoked release for the older one, `incompatible.yaml` skips a release its binary does not qualify for, `debug-screen.yaml` opens the debug screen and shares its report, which names that skip's code, `invalid-signature.yaml` shows a build that carries a public key refusing a release that is unsigned or signed with a key it does not trust, and `signed.yaml` takes a signed release on a build whose report names the public key it carries.

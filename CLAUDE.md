@@ -13,27 +13,27 @@ When code and plan disagree, stop and surface it; never improvise.
 index.html, src/             the one screen: main.ts and style.css
 hotcodepush.json             the project's configuration, as `init` writes it; placeholder ids until the app is created
 capacitor.config.ts          webDir `dist`
-ios/, android/               the native projects, committed; the copied web assets and the resource file are not
+ios/, android/               the native projects, committed; the copied web assets are not, and the resource file is written into the built app
 ```
 
 ## Commands
 
-| Command             | Does                                                                     |
-| ------------------- | ------------------------------------------------------------------------ |
-| `npm run build`     | the web bundle into `dist/`                                              |
-| `npm run sync`      | `cap sync`, whose hook runs `binary create` and writes the resource file |
-| `npm run lint`      | Prettier                                                                 |
-| `npm run typecheck` | TypeScript                                                               |
-| `npm run dev`       | Vite in the browser, where the SDK is the web no-op                      |
+| Command             | Does                                                |
+| ------------------- | --------------------------------------------------- |
+| `npm run build`     | the web bundle into `dist/`                         |
+| `npm run sync`      | `cap sync`, the web build into both native projects |
+| `npm run lint`      | Prettier                                            |
+| `npm run typecheck` | TypeScript                                          |
+| `npm run dev`       | Vite in the browser, where the SDK is the web no-op |
 
 Run `npm run fmt` before every commit.
-The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`.
+The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`; each runs the build step. `xcodebuild archive` with the same destination and `./gradlew assembleRelease` are the store builds that create the binary, the archived app at `<archive>/Products/Applications/App.app` and the release build signed with the debug key.
 
 ## The resource file
 
 The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`.
-The `capacitor:copy:after` hook, `npx hotcodepush binary create` as `init` wired it, writes it on every `cap copy` and `cap sync`, into `ios/App/App/` — referenced as a resource in the Xcode project — and `android/app/src/main/assets/`, and creates the store build's binary in HotCodePush when the CLI holds a token.
-Without a token it writes the file without a channel and creates no binary, and in such a build an explicit check answers `FAILED · CHANNEL_UNKNOWN` while the automatic ones stay silent; in CI a missing token fails the build instead, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped, which is what `ci.yml` sets on its two native jobs.
+The build step `init` wired into the native builds writes it into the built app: the Xcode phase "Create HotCodePush binary" runs the SDK's `scripts/binary-create-xcode.sh`, the `apply from` line in `android/app/build.gradle` the SDK's `android/hotcodepush.gradle`. An Xcode archive or a Gradle release variant runs `binary create`, which also creates the store build's binary in HotCodePush when the CLI holds a token; every other build runs `resource-file write` and creates nothing.
+Without a token the file carries no channel and creates no binary, and in such a build an explicit check answers `FAILED · CHANNEL_UNKNOWN` while the automatic ones stay silent; in CI a store build without a token fails, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped; `ci.yml` builds Debug, which never fails for a missing token.
 The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.new build of one commit, so `npx hotcodepush` resolves from `node_modules`.
 `HOTCODEPUSH_FILES_BASE_URL` and `HOTCODEPUSH_UPDATES_BASE_URL` point the SDK at another host, the local stack or staging.
 
