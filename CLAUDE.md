@@ -12,7 +12,7 @@ When code and plan disagree, stop and surface it; never improvise.
 ```
 index.html, src/             the one screen: main.ts and style.css
 hotcodepush.json             the project's configuration, as `init` writes it; placeholder ids until the app is created
-capacitor.config.ts          webDir `dist`
+capacitor.config.ts          webDir `dist`, which the CLI's upload reads as the web build, the role `dir` had in `hotcodepush.json`
 ios/, android/               the native projects, committed; the copied web assets are not, and the resource file is written into the built app
 ```
 
@@ -31,7 +31,7 @@ The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -desti
 
 ## The resource file
 
-The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`.
+The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file with `channelId` in place of `channel`, every option the project left out at its default, `extraFingerprintPaths` dropped, plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`; the embedded manifest leaves out `cordova.js`, `cordova_plugins.js` and `plugins/`, which the binary serves.
 The build step `init` wired into the native builds writes it into the built app: the Xcode phase "Create HotCodePush binary" runs the SDK's `scripts/binary-create-xcode.sh`, the `apply from` line in `android/app/build.gradle` the SDK's `android/hotcodepush.gradle`. An Xcode archive or a Gradle release variant runs `binary create`, which also creates the store build's binary in HotCodePush when the CLI holds a token; every other build runs `resource-file write` and creates nothing.
 Without a token the file carries no channel and creates no binary, and in such a build an explicit check answers `FAILED · CHANNEL_UNKNOWN` while the automatic ones stay silent; in CI a store build without a token fails, unless `HOTCODEPUSH_OFFLINE=1` says the build is never shipped; `ci.yml` builds Debug, which never fails for a missing token.
 The CLI is the `hotcodepush` devDependency, pinned like the SDK to the pkg.pr.new build of one commit, so `npx hotcodepush` resolves from `node_modules`.
