@@ -17,11 +17,11 @@
     "@capacitor/android": "8.5.2",
     "@capacitor/core": "8.5.2",
     "@capacitor/ios": "8.5.2",
-    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@af620e903ea66e71c8655379ab60f13170d2b964"
+    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@6a114c398de96c3fe575cc19b1c7c69632d604b5"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.2",
-    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@5fe986a2968f4acfac066a75ffcfeaef3bafbfa6",
+    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@cccdf14f3c38c99b5aa1f7f4a741c239e9049447",
     "prettier": "3.9.8",
     "typescript": "6.0.3",
     "vite": "8.3.1"
