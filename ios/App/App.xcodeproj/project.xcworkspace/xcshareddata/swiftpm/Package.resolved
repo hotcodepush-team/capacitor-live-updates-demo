@@ -1,5 +1,5 @@
 {
-  "originHash" : "eb9841eedd2dcf8f295269024446fed54b824168a0de7a31e7ed95cc169311e2",
+  "originHash" : "7027c8e486c4b693167654bfbca4ae38735507ce246070acf66067c5d5f18485",
   "pins" : [
     {
       "identity" : "capacitor-swift-pm",
@@ -15,7 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hotcodepush-team/core-ios.git",
       "state" : {
-        "revision" : "5dd7a788de97797fa3fe87fa1ffea4bfc35e32e5"
+        "revision" : "eef5dd0391ae5ffc399ce8c99004b748f6f63283"
       }
     }
   ],
