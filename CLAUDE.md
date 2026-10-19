@@ -18,13 +18,13 @@ ios/, android/               the native projects, committed; the copied web asse
 
 ## Commands
 
-| Command             | Does                                                |
-| ------------------- | --------------------------------------------------- |
-| `npm run build`     | the web bundle into `dist/`                         |
-| `npm run sync`      | `cap sync`, the web build into both native projects |
-| `npm run lint`      | Prettier                                            |
-| `npm run typecheck` | TypeScript                                          |
-| `npm run dev`       | Vite in the browser, where the SDK is the web no-op |
+| Command             | Does                                                                               |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| `npm run build`     | the web bundle into `dist/`                                                        |
+| `npm run sync`      | `cap sync`, the web build into both native projects                                |
+| `npm run lint`      | Prettier                                                                           |
+| `npm run typecheck` | TypeScript                                                                         |
+| `npm run dev`       | Vite in the browser, where every SDK call rejects with Capacitor's `UNIMPLEMENTED` |
 
 Run `npm run fmt` before every commit.
 The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`; each runs the build step. `xcodebuild archive` with the same destination and `./gradlew assembleRelease` are the store builds that create the binary, the archived app at `<archive>/Products/Applications/App.app` and the release build signed with the debug key.

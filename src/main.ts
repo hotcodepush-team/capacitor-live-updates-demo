@@ -28,7 +28,7 @@ async function showState(): Promise<void> {
       HotCodePush.getDevice(),
     ]);
     currentReleaseText.textContent = resolveReleaseText(state.currentRelease);
-    deviceIdText.textContent = device.id || 'none on the web';
+    deviceIdText.textContent = device.id ?? 'none yet';
     lastSyncText.textContent = state.lastCheck
       ? resolveResultText(state.lastCheck.result)
       : 'none yet';
