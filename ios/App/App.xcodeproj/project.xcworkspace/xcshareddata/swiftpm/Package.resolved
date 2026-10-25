@@ -15,7 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hotcodepush-team/core-ios.git",
       "state" : {
-        "revision" : "eef5dd0391ae5ffc399ce8c99004b748f6f63283"
+        "revision" : "17a2cc92ac21c870cec9a5cfe32d427433bdfb70"
       }
     }
   ],

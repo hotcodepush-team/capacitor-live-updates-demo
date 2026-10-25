@@ -28,7 +28,7 @@ appId: com.hotcodepush.demo.capacitor
 - repeat:
     times: 3
     while:
-      visible: 'FAILED · DEVICE_OFFLINE.*'
+      visible: 'failed · device_offline.*'
     commands:
       - tapOn: 'Sync now'
       - extendedWaitUntil:
@@ -37,7 +37,7 @@ appId: com.hotcodepush.demo.capacitor
 # The sync at start may have downloaded the release already, and a second
 # sync answers the same: downloaded, waiting for the next start, which
 # applies it on the relaunch.
-- assertVisible: 'DOWNLOADED · #${EXPECTED_RELEASE_NUMBER} · ${EXPECTED_VERSION}, applies next-start'
+- assertVisible: 'downloaded · #${EXPECTED_RELEASE_NUMBER} · ${EXPECTED_VERSION}, applies next_start'
 - stopApp
 - launchApp:
     permissions:
