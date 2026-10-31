@@ -44,6 +44,14 @@ The CLI is pinned the same way, `https://pkg.pr.new/hotcodepush-team/cli/hotcode
 The SDK's Android core comes from core-android's `maven` branch at the commit the SDK pins, a repository the plugin adds to every project of the app's build itself, so `android/build.gradle` lists nothing for it; its iOS core resolves through Swift Package Manager on its own.
 Every other dependency is pinned to an exact version and bumped by Renovate.
 
+## Comments
+
+- Comment only what the code cannot say: the why behind a choice, an outside quirk or limit, what a regex matches, a TODO with its issue link. Never what the code does.
+- Before adding a comment, try a clearer name or a small extracted function first.
+- One or two short plain sentences. Capital letter, full stop, own line above the code. No run-on sentences, no chains of possessives.
+- Doc comments (JSDoc, KDoc, `///`, docstrings) only on a package's public API: one line that says what it does, then only what a caller must know.
+- Never: section banners, commented-out code, change history, the same comment in two places.
+
 ## Agent workspace
 
 - `.mcp.json` registers the Capacitor server; the HotCodePush server joins when it exists.

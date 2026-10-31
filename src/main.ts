@@ -1,7 +1,7 @@
 import { HotCodePush } from '@hotcodepush/capacitor-live-updates';
 import type { Release, SyncResult } from '@hotcodepush/capacitor-live-updates';
 
-// Change it, build, release: the label is how you see the update land.
+// Change this label before each release to see the update land on the device.
 const VERSION = 'v1';
 
 const versionHeading = getElement('version');
@@ -15,7 +15,7 @@ const debugButton = getElement<HTMLButtonElement>('debug-button');
 versionHeading.textContent = VERSION;
 syncButton.addEventListener('click', () => void syncNow());
 debugButton.addEventListener('click', () => void HotCodePush.showDebugScreen());
-// Fired once, on the start that follows a rollback: the release that failed and why.
+// The SDK fires this once, on the first start after a rollback.
 void HotCodePush.addListener('updateRolledBack', event => {
   lastRollbackText.textContent = `from ${resolveReleaseText(event.fromRelease)} · ${event.reason}`;
 });
