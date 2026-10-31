@@ -11,8 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let bridgeViewController = CAPBridgeViewController()
         window?.rootViewController = bridgeViewController
         window?.makeKeyAndVisible()
-        // The web view keeps clear of the status bar and the home indicator (`ios.contentInset`), and Capacitor
-        // paints those strips in the system's background: the page's own colour keeps the screen in one piece.
+        // With `ios.contentInset`, Capacitor paints the status bar and home indicator strips in the system background.
+        // The page colour there makes the screen look like one surface.
         bridgeViewController.loadViewIfNeeded()
         bridgeViewController.webView?.scrollView.backgroundColor = UIColor(named: "PageBackground")
 
