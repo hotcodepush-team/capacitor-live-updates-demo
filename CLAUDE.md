@@ -39,7 +39,7 @@ The CLI is the `hotcodepush` devDependency, pinned to an exact npm release, so `
 
 ## Dependencies during the build phase
 
-The SDK is pinned to the pkg.pr.new build of one commit, `https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@<sha>`, never `@main`; a bump is one edit of that sha.
+The SDK is pinned to its published release, `0.1.0`, bumped by hand when the SDK releases.
 The CLI is pinned to an exact npm release in `devDependencies`, and the release workflow reads that pin as `cli-version`, so one bump moves the native builds and the release together.
 The SDK's Android core comes from core-android's `maven` branch at the commit the SDK pins, a repository the plugin adds to every project of the app's build itself, so `android/build.gradle` lists nothing for it; its iOS core resolves through Swift Package Manager on its own.
 Every other dependency is pinned to an exact version and bumped by Renovate.
