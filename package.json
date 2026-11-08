@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.2",
-    "hotcodepush": "https://pkg.pr.new/hotcodepush-team/cli/hotcodepush@a201ae93b27880f1e7be27425225379f5e200457",
+    "hotcodepush": "0.3.0",
     "prettier": "3.9.8",
     "typescript": "6.0.3",
     "vite": "8.3.5"
