@@ -17,7 +17,7 @@
     "@capacitor/android": "8.5.2",
     "@capacitor/core": "8.5.2",
     "@capacitor/ios": "8.5.2",
-    "@hotcodepush/capacitor-live-updates": "https://pkg.pr.new/hotcodepush-team/capacitor-live-updates/@hotcodepush/capacitor-live-updates@a91c5134fe51b939a9ba81d8a6e12b5bb5cb475a"
+    "@hotcodepush/capacitor-live-updates": "0.1.0"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.2",
