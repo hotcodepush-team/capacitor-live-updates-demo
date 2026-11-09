@@ -2,7 +2,7 @@ import { HotCodePush } from '@hotcodepush/capacitor-live-updates';
 import type { Release, SyncResult } from '@hotcodepush/capacitor-live-updates';
 
 // Change this label before each release to see the update land on the device.
-const VERSION = 'v1';
+const VERSION = 'v2';
 
 const versionHeading = getElement('version');
 const currentReleaseText = getElement('current-release');
