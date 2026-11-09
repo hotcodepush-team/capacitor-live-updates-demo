@@ -29,9 +29,8 @@ ios/, android/               the native projects, committed; the copied web asse
 Run `npm run fmt` before every commit.
 The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`; each runs the build step. `xcodebuild archive` with the same destination and `./gradlew assembleRelease` are the store builds that create the binary, the archived app at `<archive>/Products/Applications/App.app` and the release build signed with the debug key.
 
-`downloads.yml` builds the downloads from a `binary/*` tag, the Android release APK and the iOS simulator app, and attaches them to a GitHub release of that tag.
-They build with `HOTCODEPUSH_TOKEN`, so the build step writes the channel into the app, and every later merge to `main` ships a release they take.
-`VERSION` in `src/main.ts` on `main` stays ahead of the label at the newest tag, so the first sync of a download shows a new label. A change to native code needs a new tag.
+`release.yml` builds the downloads, the Android release APK and the iOS simulator app, on every merge to `main` with `HOTCODEPUSH_TOKEN`, so the build step writes the channel into the app.
+It stamps their label `v1`, publishes them as the rolling GitHub release `downloads` and ships the OTA release after them, so a download always takes the newest release and shows the label on `main`.
 
 ## The resource file
 
