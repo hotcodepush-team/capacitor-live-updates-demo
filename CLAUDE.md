@@ -29,6 +29,10 @@ ios/, android/               the native projects, committed; the copied web asse
 Run `npm run fmt` before every commit.
 The native builds: `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination 'generic/platform=iOS Simulator' build` and `./gradlew assembleDebug` in `android/`, both after `npm run build && npx cap sync`; each runs the build step. `xcodebuild archive` with the same destination and `./gradlew assembleRelease` are the store builds that create the binary, the archived app at `<archive>/Products/Applications/App.app` and the release build signed with the debug key.
 
+`downloads.yml` builds the downloads from a `binary/*` tag, the Android release APK and the iOS simulator app, and attaches them to a GitHub release of that tag.
+They build with `HOTCODEPUSH_TOKEN`, so the build step writes the channel into the app, and every later merge to `main` ships a release they take.
+`VERSION` in `src/main.ts` on `main` stays ahead of the label at the newest tag, so the first sync of a download shows a new label. A change to native code needs a new tag.
+
 ## The resource file
 
 The SDK reads `hotcodepush.json` from the app bundle on iOS and from `assets/` on Android: the project's file with `channelId` in place of `channel`, every option the project left out at its default, `extraFingerprintPaths` dropped, plus `builtAt`, `fingerprint`, `embeddedBundleManifest` and `embeddedBundleId`; the embedded manifest leaves out `cordova.js`, `cordova_plugins.js` and `plugins/`, which the binary serves.
