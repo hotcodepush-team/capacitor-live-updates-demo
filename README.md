@@ -3,11 +3,26 @@
 [![CI](https://github.com/hotcodepush-team/capacitor-live-updates-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/hotcodepush-team/capacitor-live-updates-demo/actions/workflows/ci.yml)
 [![Release](https://github.com/hotcodepush-team/capacitor-live-updates-demo/actions/workflows/release.yml/badge.svg)](https://github.com/hotcodepush-team/capacitor-live-updates-demo/actions/workflows/release.yml)
 
-A Capacitor app with [`@hotcodepush/capacitor-live-updates`](https://github.com/hotcodepush-team/capacitor-live-updates) wired in, the way `npx hotcodepush init` wires it. It is pre-configured for a HotCodePush app on production, so a build takes the newest over-the-air (OTA) update as soon as it starts. No account, no setup, build it and watch it update. Every merge to `main` ships a release to that app through the [GitHub Action](https://github.com/hotcodepush-team/release-action), and CI builds both platforms.
+A Capacitor app with [`@hotcodepush/capacitor-live-updates`](https://github.com/hotcodepush-team/capacitor-live-updates) wired in, the way `npx hotcodepush init` wires it. It is pre-configured for a HotCodePush app on production. Install the download, open it and watch the first over-the-air (OTA) update land. No account, no setup. Every merge to `main` ships a release to that app through the [GitHub Action](https://github.com/hotcodepush-team/release-action), and CI builds both platforms.
 
 <p align="center">
   <img src=".github/assets/screenshot.png" alt="The demo on an iPhone simulator, showing the version badge, the current release and the Sync now button" width="320" />
 </p>
+
+## Download
+
+The [downloads release](https://github.com/hotcodepush-team/capacitor-live-updates-demo/releases/tag/downloads) carries the app for Android and for the iOS simulator. Every merge to `main` rebuilds both, with the label `v1`, before it ships the update.
+
+```sh
+# Android, on a device or an emulator
+adb install hotcodepush-demo-capacitor-android.apk
+
+# iOS simulator, booted from Xcode
+unzip hotcodepush-demo-capacitor-ios-simulator.zip
+xcrun simctl install booted App.app
+```
+
+The app starts on `v1` and downloads `v2` on its first sync, the release `main` shipped after the build. Open it again and the badge reads `v2`.
 
 ## What you will see
 
@@ -37,7 +52,7 @@ npx cap sync
 npx cap open ios
 ```
 
-Or `npx cap open android`. Run the app from Xcode or Android Studio. It starts on its embedded bundle, syncs against the `production` channel of the demo's app and shows the newest release.
+Or `npx cap open android`. Run the app from Xcode or Android Studio. It starts on its embedded bundle and syncs against the `production` channel of the demo's app. A build takes only releases created after it was built, so a fresh build answers `skipped · release_older_than_binary` until the next merge to `main` ships a release. That is what the download is for.
 
 ### Ship an update of your own
 
